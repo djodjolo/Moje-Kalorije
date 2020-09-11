@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".WelcomeActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:background="?attr/colorPrimary"
+        android:paddingRight="16dp"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:paddingTop="30dp"
+        >
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MOJE KALORIJE"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="36sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="50px"
+            android:text="Moje kalorije je aplikcija koja Vam pruza mogucnost da pratite svoj dnevni unos kalorija."
+            android:textSize="20sp"
+        />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:src="@drawable/ic_undraw_profile" />
+
+        <Button
+            android:id="@+id/buttonWelcomeLogin"
+            android:layout_width="172dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/custom_button_1"
+            android:text="LOGIN"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"/>
+        <Button
+            android:id="@+id/buttonWelcomeRegister"
+            android:layout_width="172dp"
+            android:layout_marginTop="30px"
+            android:layout_height="49dp"
+            android:background="@drawable/custom_button_1"
+            android:text="REGISTER"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"/>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="horizontal"
+            android:layout_height="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:text="Version V1"
+                android:layout_gravity="left|bottom"
+                />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:gravity="right"
+                android:text="Author Djordje Milosevic"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

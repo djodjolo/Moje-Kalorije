@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "948079014765",
+    "firebase_url": "https://fs1dev-603b4.firebaseio.com",
+    "project_id": "fs1dev-603b4",
+    "storage_bucket": "fs1dev-603b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948079014765:android:2473bcac069149f9016064",
+        "android_client_info": {
+          "package_name": "com.ais.mojekalorije"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948079014765-ju3p7sgshpsc7ghhebn41v41a7g1dhd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArY1MY3dZlGmoE3ZT_HpjrNG6adkckJkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948079014765-ju3p7sgshpsc7ghhebn41v41a7g1dhd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,37 +2,74 @@ package com.ais.mojekalorije;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.text.InputType;
+import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
 import java.util.Date;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(R.layout.activity_main);
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.createUserWithEmailAndPassword("aa@gmail.com", "1234567")
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.e("CreatedUser", "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.e("AAa", "createUserWithEmail:failure", task.getException());
+                        }
+                    }
+                });
+
+        db.collection("events")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.e( "Poruka",document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                                Log.e("Poruka Exc", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -41,17 +78,17 @@ public class ScrollingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(ScrollingActivity.this);
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
                 alert.setTitle("Unesite  sta ste jeli");
-                final EditText input = new EditText(ScrollingActivity.this);
+                final EditText input = new EditText(MainActivity.this);
                 alert.setView(input);
 
                 alert.setPositiveButton("Next", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String value2 = input.getText().toString();
-                        AlertDialog.Builder alert2 = new AlertDialog.Builder(ScrollingActivity.this);
+                        AlertDialog.Builder alert2 = new AlertDialog.Builder(MainActivity.this);
                         alert2.setTitle("Unesite  broj kalorija");
-                        final EditText input = new EditText(ScrollingActivity.this);
+                        final EditText input = new EditText(MainActivity.this);
                         alert2.setView(input);
 
                         alert2.setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -87,8 +124,6 @@ public class ScrollingActivity extends AppCompatActivity {
         textView.setText(date_n);
 
 
-
-
         ListView lista = (ListView) findViewById(R.id.listView);
         ArrayList<String> arrayLista = new ArrayList<>();
         arrayLista.add("1");
@@ -110,6 +145,14 @@ public class ScrollingActivity extends AppCompatActivity {
 //        listView.setAdapter(adapter);
 
 
+        TextView textViewSettingas = (TextView) findViewById(R.id.podesavanjaText);
+        textViewSettingas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            }
+        });
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,26 +164,10 @@ public class ScrollingActivity extends AppCompatActivity {
 //                };
             }
         });
+
+
+
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_scrolling, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
