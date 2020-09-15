@@ -22,7 +22,6 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,14 +34,14 @@
         >
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewLoginLabelUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dnevni unos kalorija"
+            android:text="Email"
             android:textColor="@color/colorWhite"
             android:layout_gravity="center"/>
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editTextLoginUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -52,25 +51,26 @@
             android:inputType="textPersonName"/>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textViewLoginLabelPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vreme poslednjeg obroka"
+            android:text="Password"
             android:layout_gravity="center"
             android:textColor="@color/colorWhite" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editTextLoginPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:background="@color/colorWhite"
             android:ems="10"
-            android:layout_marginBottom="20dp"
             android:inputType="textPersonName"
-            android:layout_gravity="center" />
+            android:password="true" />
 
         <Button
-            android:id="@+id/buttonSettingsSave"
+            android:id="@+id/buttonLoginLogin"
             android:layout_width="172dp"
             android:layout_height="49dp"
             android:background="@drawable/custom_button_1"

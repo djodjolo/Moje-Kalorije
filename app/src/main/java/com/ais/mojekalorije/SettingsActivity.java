@@ -11,7 +11,12 @@ import android.widget.EditText;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SettingsActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,14 +27,13 @@ public class SettingsActivity extends AppCompatActivity {
         Button buttonSettingsSave = (Button) findViewById(R.id.buttonSettingsSave);
         Button buttonLogout = (Button) findViewById(R.id.buttonLogout);
 
+
         tb.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SettingsActivity.this, MainActivity.class));
             }
         });
-
-
 
         buttonSettingsSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +71,14 @@ public class SettingsActivity extends AppCompatActivity {
 
                 alert.setPositiveButton("DA", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            // User is signed in
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(SettingsActivity.this, WelcomeActivity.class));
+                        } else {
+                            // No user is signed in
+                        }
                         return;
                     }
                 });

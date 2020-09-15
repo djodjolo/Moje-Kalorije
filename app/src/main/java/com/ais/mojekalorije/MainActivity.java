@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.ais.mojekalorije.model.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,8 +26,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.Date;
 
@@ -35,26 +40,41 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    FirebaseUser user;
+
+    ArrayList<String> arrayListaKcal;
+    ArrayList<String> arrayListaDetails;
+    ListView listViewKcal;
+    ListView listViewDetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword("aa@gmail.com", "1234567")
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.e("CreatedUser", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.e("AAa", "createUserWithEmail:failure", task.getException());
-                        }
-                    }
-                });
+        TextView usernameText = (TextView) findViewById(R.id.usernameText);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            // User is signed in
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+//          Uri photoUrl = user.getPhotoUrl();
+            usernameText.setText(email);
+
+            // Check if user's email is verified
+//            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getIdToken() instead.
+            String uid = user.getUid();
+        } else {
+            // No user is signed in
+            startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+        }
 
         db.collection("events")
                 .get()
@@ -62,14 +82,37 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            arrayListaKcal = new ArrayList<>();
+                            arrayListaDetails = new ArrayList<>();
+                            listViewKcal = (ListView) findViewById(R.id.listViewKcal);
+                            listViewDetail = (ListView) findViewById(R.id.listViewHrana);
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.e( "Poruka",document.getId() + " => " + document.getData());
+
+                                Event eventModel = document.toObject(Event.class);
+
+                                if(eventModel.getUser_id().equals(user.getUid())
+
+                                ){
+                                    arrayListaKcal.add(eventModel.getKcal());
+                                    arrayListaDetails.add(eventModel.getDescription());
+                                    Log.e( "Konkretni user",document.getId() + " =>   " + eventModel.getDate().getMonth() + " " + eventModel.getDate().getYear());
+                                }
+//                                Log.e( "Poruka",document.getId() + " => " + document.toObject(Event.class).toString());
                             }
+
+                            ArrayAdapter<String> adapterlistaKcal = new ArrayAdapter<String>(MainActivity.this, R.layout.row, arrayListaKcal);
+                            ArrayAdapter<String> adapterlistaDetails= new ArrayAdapter<String>(MainActivity.this, R.layout.row, arrayListaDetails);
+
+                            listViewKcal.setAdapter(adapterlistaKcal);
+                            listViewDetail.setAdapter(adapterlistaDetails);
+
                         } else {
                                 Log.e("Poruka Exc", "Error getting documents.", task.getException());
                         }
                     }
                 });
+
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -124,26 +167,20 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(date_n);
 
 
-        ListView lista = (ListView) findViewById(R.id.listView);
-        ArrayList<String> arrayLista = new ArrayList<>();
-        arrayLista.add("1");
-        arrayLista.add("2");
-        ArrayAdapter<String> adapterlistaObavestenja = new ArrayAdapter<String>(this,R.layout.row,arrayLista);
-        lista.setAdapter(adapterlistaObavestenja);
-
-
-        ListView lista2 = (ListView) findViewById(R.id.listViewHrana);
-        ArrayList<String> arrayLista2 = new ArrayList<>();
-        arrayLista2.add("Ovsene");
-        arrayLista2.add("Punjena");
-        ArrayAdapter<String> adapterlistaObavestenja2 = new ArrayAdapter<String>(this,R.layout.row,arrayLista2);
-        lista2.setAdapter(adapterlistaObavestenja2);
-
-//        String[] countryArray = {"India", "Pakistan", "USA", "UK"};
-//        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.row,R.id.textView, countryArray);
-//        ListView listView = (ListView) findViewById(R.id.listView);
-//        listView.setAdapter(adapter);
-
+//        ListView lista = (ListView) findViewById(R.id.listViewKcal);
+//        ArrayList<String> arrayLista = new ArrayList<>();
+//        arrayLista.add("1");
+//        arrayLista.add("2");
+//        ArrayAdapter<String> adapterlistaObavestenja = new ArrayAdapter<String>(this,R.layout.row,arrayListaKcal);
+//        lista.setAdapter(adapterlistaObavestenja);
+//
+//
+//        ListView lista2 = (ListView) findViewById(R.id.listViewHrana);
+//        ArrayList<String> arrayLista2 = new ArrayList<>();
+//        arrayLista2.add("Ovsene");
+//        arrayLista2.add("Punjena");
+//        ArrayAdapter<String> adapterlistaObavestenja2 = new ArrayAdapter<String>(this,R.layout.row,arrayLista2);
+//        lista2.setAdapter(adapterlistaObavestenja2);
 
         TextView textViewSettingas = (TextView) findViewById(R.id.podesavanjaText);
         textViewSettingas.setOnClickListener(new View.OnClickListener() {
@@ -164,10 +201,6 @@ public class MainActivity extends AppCompatActivity {
 //                };
             }
         });
-
-
-
-
     }
 
 }

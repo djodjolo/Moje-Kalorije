@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override
@@ -18,6 +21,11 @@ public class WelcomeActivity extends AppCompatActivity {
         Button buttonWelcomeLogin = (Button) findViewById(R.id.buttonWelcomeLogin);
         Button buttonWelcomeRegister = (Button) findViewById(R.id.buttonWelcomeRegister);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+
+        }
 
         buttonWelcomeLogin.setOnClickListener(new View.OnClickListener() {
             @Override
