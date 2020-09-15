@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Date;
+import org.joda.time.DateTime;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final DateTime today = new DateTime();
+        Log.e( "Danasnji dan ", "dan: "+today.getDayOfMonth() +" mesec: "+today.getMonthOfYear() +" godina: "+today.getYear());
+
 
         TextView usernameText = (TextView) findViewById(R.id.usernameText);
 
@@ -92,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
                                 Event eventModel = document.toObject(Event.class);
 
                                 if(eventModel.getUser_id().equals(user.getUid())
-
+                                    && today.getDayOfMonth()==new DateTime(eventModel.getDate()).getDayOfMonth()
+                                    && today.getMonthOfYear()==new DateTime(eventModel.getDate()).getMonthOfYear()
+                                    && today.getYear()==new DateTime(eventModel.getDate()).getYear()
                                 ){
                                     arrayListaKcal.add(eventModel.getKcal());
                                     arrayListaDetails.add(eventModel.getDescription());
-                                    Log.e( "Konkretni user",document.getId() + " =>   " + eventModel.getDate().getMonth() + " " + eventModel.getDate().getYear());
                                 }
-//                                Log.e( "Poruka",document.getId() + " => " + document.toObject(Event.class).toString());
                             }
 
                             ArrayAdapter<String> adapterlistaKcal = new ArrayAdapter<String>(MainActivity.this, R.layout.row, arrayListaKcal);

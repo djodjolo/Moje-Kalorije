@@ -4,9 +4,11 @@ package com.ais.mojekalorije.model;
 import java.util.Date;
 
 
+
 public class Event {
     String description,kcal,user_id;
     Date date;
+
 
     public String getKcal() {
         return kcal;
