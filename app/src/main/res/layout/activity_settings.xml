@@ -41,7 +41,7 @@
             android:textColor="@color/colorWhite"
             android:layout_gravity="center"/>
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editTextUnosKalorija"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -59,7 +59,7 @@
             android:textColor="@color/colorWhite" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editTextPoslednjiObrok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
@@ -72,11 +72,11 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Username"
+            android:text="New Email"
             android:textColor="@color/colorWhite"
             android:layout_gravity="center"/>
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/editTextEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -93,7 +93,7 @@
             android:textColor="@color/colorWhite"
             android:layout_gravity="center" />
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/editTextPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"

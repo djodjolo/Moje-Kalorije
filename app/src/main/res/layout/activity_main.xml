@@ -40,28 +40,16 @@
             app:layout_constraintStart_toStartOf="@+id/constraintLayout">
 
             <TextView
-            android:id="@+id/usernameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="16dp"
-            android:text="Username"
-            android:textColor="@color/colorWhite"
-            app:layout_constraintEnd_toEndOf="@id/sixteenText"
-            app:layout_constraintHorizontal_bias="0.078"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/sixteenText"
+                android:id="@+id/usernameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="16dp"
-                android:text="16/8"
+                android:text="Username"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintEnd_toStartOf="@+id/podesavanjaText"
-                app:layout_constraintStart_toEndOf="@+id/usernameText"
+                app:layout_constraintHorizontal_bias="0.124"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -84,23 +72,22 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="52dp"
                 android:text="MOJE KALORIJE"
-                android:textStyle="bold"
                 android:textColor="@color/colorWhite"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textViewDateMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="104dp"
                 android:text="DATE"
                 android:textColor="@color/colorWhite"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,42 +98,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="148dp"
+                android:layout_marginTop="156dp"
                 android:text="920/2200 kcal"
                 android:textColor="@color/colorWhite"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/nextDayTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="104dp"
-                android:text="→"
-                android:textColor="@color/colorWhite"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.147"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/previousDayTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="104dp"
-                android:text="←"
-                android:textColor="@color/colorWhite"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView"
-                app:layout_constraintHorizontal_bias="0.804"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -172,7 +131,17 @@
                 android:id="@+id/listViewHrana"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".70"
+                android:layout_weight=".60"
+                android:divider="#000"
+                android:dividerHeight="2dp"
+                android:paddingTop="30dp"
+                tools:layout_editor_absoluteX="78dp"
+                tools:layout_editor_absoluteY="283dp" />
+            <ListView
+                android:id="@+id/listViewDeletes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".10"
                 android:divider="#000"
                 android:dividerHeight="2dp"
                 android:paddingTop="30dp"

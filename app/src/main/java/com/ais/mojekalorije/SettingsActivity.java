@@ -4,18 +4,31 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ais.mojekalorije.model.userInfo;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class SettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+    EditText  editTextUnosKalorija,editTextPoslednjiObrok,editTextEmail,editTextPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +39,30 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar tb =  (Toolbar) findViewById(R.id.toolbar);
         Button buttonSettingsSave = (Button) findViewById(R.id.buttonSettingsSave);
         Button buttonLogout = (Button) findViewById(R.id.buttonLogout);
+
+
+        db.collection("user_info")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                userInfo uf = document.toObject(userInfo.class);
+                                editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+                                editTextEmail.setText( FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+                                editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+
+                            }
+                        } else {
+                            Log.e("Poruka Exc", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
+
 
 
         tb.setNavigationOnClickListener(new View.OnClickListener() {
